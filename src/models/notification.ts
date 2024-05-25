@@ -2,10 +2,10 @@ import { getDB } from "./config";
 
 const NotificationModel = async () => {
     const db = await getDB();
-    return db.collection("messages");
+    return db.collection("notifications");
 };
 
-export const createNotification = async (notification:Notification) => {
+export const createNotification = async (notification:NoticeModel) => {
     const user = await (await NotificationModel()).insertOne(notification);
     return user;
 };

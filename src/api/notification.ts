@@ -4,7 +4,7 @@ export const notificationsApi={
     getAll(){
         return axiosInstance.get("./notifications")
     },
-    createOne(form: Form){
+    createOne(form:FormData){
         return axiosInstance.post("./notifications",form)
     }
 }
