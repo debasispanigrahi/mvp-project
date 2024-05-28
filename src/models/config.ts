@@ -1,6 +1,4 @@
 
-// src/lib/mongodb.js
-
 import { MongoClient } from "mongodb";
 
 if (!import.meta.env.MONGODB_URI) {
@@ -20,8 +18,6 @@ const connectToDB = async () => {
 };
 
 export const getDB = async () => {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (import.meta.env.NODE_ENV === "development") {
     if (!global._mongoConnection) {
       global._mongoConnection = await connectToDB();

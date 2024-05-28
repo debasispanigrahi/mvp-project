@@ -9,10 +9,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style-type: none;
 }
 body{
-    color:var(--text-primary) ;
-    background-color: var(--background-primary);
+    /* color:var(--text-primary) ;
+    background-color: var(--background-primary); */
 }
 .background-overlay::after{
     background: rgba(0, 0, 0, 0.5);
@@ -24,14 +25,17 @@ body{
     left: 0;
 }
 .p-accordion,.p-accordion-header,.p-accordion-content,.p-accordion-header-link{
-    color:var(--text-primary) ;
-    background-color: var(--background-primary);
+    
+}
+.p-accordion{
+    @apply border-slate-300 border-solid border-0 border-b;
 }
 .p-accordion-header-link{
     font-size: 20px;
     padding: 10px 10px;
+    color: var( --text-header);
 }
-.p-accordion-header-link:hover{
+.p-accordion-header-link:hover .notify-header{
     text-decoration: underline;
 }
 .p-accordion-content{
@@ -40,8 +44,9 @@ body{
 }
 .p-dialog-header{
     padding: 10px;
+    padding-left: 30px;
     color: var(--text-header);
-    border-bottom: 1px solid var(--border-primary);
+    border-bottom: 1px solid rgba(var(--border-primary),0.4);
 }
 .p-button{
     color: var(--text-header);
@@ -56,4 +61,32 @@ body{
 }
 .p-toast-detail{
     margin-top: 0.5rem;
+}
+.error-log{
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s linear;
+}
+.showError .error-log{
+    max-height: 100px;
+}
+.stop,.playing .play{
+    display: none;
+}
+.playing .stop{
+    display: inline;
+}
+.active-sidebar{
+    overflow: hidden;
+}
+.sidebar-section{
+    left:-100%;
+    transition: left 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.active-sidebar .sidebar-section{
+    left:-1px;
+}
+.max-\[768px\]\:text-base .p-message-text{
+    font-size: 14px;
+    margin-left: 5px;
 }

@@ -1,27 +1,21 @@
 <template>
     <section class="w-full">
-        <div class="h-24 flex items-end mx-4 my-2 text-2xl">
-            <h2>Notifications</h2>
+        <div class="flex mx-4 my-2 text-lg max-[768px]:text-lg  mt-8 flex-col gap-4">
+            <div class="flex flex-col gap-2 text-xl max-[768px]:text-lg">
+                <Tag value="Today's Advice" class="w-fit px-4 py-2"></Tag>
+                <span>
+                    Sugary drinks like sodas, fruit juices, and sweetened teas are the primary source of added sugar in
+                    the American diet.
+                </span>
+            </div>
+            <hr class="opacity-40" />
+
+            <h2 class="italic text-[--text-header] uppercase max-[768px]:text-lg">Notifications</h2>
         </div>
-        <div class="border-slate-300 border-solid border-0 border-t-2">
-            <template v-if="notifyResult">
-                <template v-if="notifyResult.length">
-                    <Accordion v-for="(item) in notifyResult">
-                        <AccordionTab>
-                            <template #header>
-                                <span class="flex align-items-center gap-2 w-full">
-                                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                                        shape="circle" />
-                                    <span class="font-bold white-space-nowrap">{{ item.title }}</span>
-                                    <Badge value="3" class="ml-auto mr-2" />
-                                </span>
-                            </template>
-                            <audio :src="item.audioSrc" id="audioPlay" controls class="border border-solid"></audio>
-                            <p class="m-0">
-                                {{ item.content }}
-                            </p>
-                        </AccordionTab>
-                    </Accordion>
+        <div class="mt-4">
+            <template v-if="notifyResults">
+                <template v-if="notifyResults.length">
+                    <Tile :notify-result="item" v-for="(item) in notifyResults" @remove-item="removeItem($event)" />
                 </template>
                 <template v-else>
                     <div class="flex  justify-center items-center gap-4 mt-8">
@@ -40,19 +34,26 @@
 </template>
 
 <script lang="ts" setup>
-
-import Accordion from 'primevue/accordion';
-import AccordionTab from 'primevue/accordiontab';
-import Avatar from 'primevue/avatar';
-import Badge from 'primevue/badge';
+import Tile from './tile.vue'
 import { onMounted, ref } from 'vue';
+import Tag from 'primevue/tag';
 import { notificationsApi } from '../../../../api/notification';
 import { Icon } from '@iconify/vue';
 
-const notifyResult = ref<NoticeModel[] | null>(null)
-onMounted(async () => {
+const notifyResults = ref<NoticeModel[] | null>(null)
+const fetchNotification = async () => {
     const alertResult = await notificationsApi.getAll()
-    notifyResult.value = alertResult.data.notifications;
+    notifyResults.value = alertResult.data.notifications;
+}
+onMounted(async () => {
+    fetchNotification()
+})
+const removeItem = (e: string) => {
+    notifyResults.value = notifyResults.value?.filter((v) => v._id != e) || []
+}
+
+defineExpose({
+    fetchNotification
 })
 
 </script>
