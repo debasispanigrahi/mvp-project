@@ -1,8 +1,8 @@
 <template>
-    <form class="w-full p-4" :class="{ 'showError': showError }" @submit.prevent="submitMessage()">
-        <div class="flex flex-wrap mb-4">
+    <form class="w-full p-4 max-[768px]:pt-1" :class="{ 'showError': showError }" @submit.prevent="submitMessage()">
+        <div class="flex flex-wrap mb-4 max-[768px]:mb-2">
             <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-1"
+                <label class="block uppercase tracking-wide text-gray-700 text-base max-[768px]:text-sm font-bold mb-1"
                     for="grid-first-name">
                     Title
                 </label>
@@ -12,9 +12,9 @@
                 <p class="text-red-500 text-xs italic error-log">{{ titleError }}</p>
             </div>
         </div>
-        <div class="flex flex-wrap mb-4">
+        <div class="flex flex-wrap mb-4 max-[768px]:mb-2">
             <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-1" for="grid-password">
+                <label class="block uppercase tracking-wide text-gray-700 text-base max-[768px]:text-sm font-bold mb-1" for="grid-password">
                     Content
                 </label>
                 <div class="flex items-center">
@@ -45,16 +45,16 @@
 
             </div>
         </div>
-        <div class="flex flex-wrap mb-4">
-            <div class="w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-1" for="grid-city">
+        <div class="flex flex-wrap mb-4 max-[768px]:gap-4 max-[768px]:mb-2">
+            <div class="w-1/2 max-[768px]:w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-base max-[768px]:text-sm font-bold mb-1" for="grid-city">
                     Time
                 </label>
                 <Calendar showTime hourFormat="12" id="grid-city" type="text" showSeconds
                     inputClass="py-2 px-3 h-[45px]" v-model="form.time" :placeholder="new Date().toLocaleString()" />
             </div>
-            <div class="w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-1" for="grid-city">
+            <div class="w-1/2 max-[768px]:w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-base max-[768px]:text-sm font-bold mb-1" for="grid-city">
                     Device ID
                 </label>
                 <InputText
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="px-3 py-3">
+        <div class="px-3 py-3 max-[768px]:py-0">
             <Button type="submit" label="Add Notification &nbsp;" icon="pi pi-search" class="py-2 px-3"
                 :loading="submitStatus" iconPos="right" />
         </div>
@@ -100,7 +100,7 @@ const showError = ref(false)
 
 const titleError = computed(() => {
     if (!form.value.title) return requiredError.replace('{Label}', 'Title')
-    if (form.value.title.length > 50) return maxLengthError.replace('{Label}', 'Title').replace('{Min}', '50');
+    if (form.value.title.length > 50) return maxLengthError.replace('{Label}', 'Title').replace('{Max}', '50');
     if (form.value.title.length < 5) return minLengthError.replace('{Label}', 'Title').replace('{Min}', '5');
     return ""
 })
@@ -108,14 +108,14 @@ const titleError = computed(() => {
 const contentError = computed(() => {
     if (form.value.audio) return ""
     if (!form.value.content && !form.value.audio) return requiredError.replace('{Label}', 'Content or Audio')
-    if (form.value.content.length > 500) return maxLengthError.replace('{Label}', 'Content').replace('{Min}', '500');
+    if (form.value.content.length > 500) return maxLengthError.replace('{Label}', 'Content').replace('{Max}', '500');
     if (form.value.content.length < 10) return minLengthError.replace('{Label}', 'Content').replace('{Min}', '10');
     return ""
 })
 
 const deviceError = computed(() => {
     if (!form.value.deviceId) return requiredError.replace('{Label}', 'Device')
-    if (form.value.deviceId.length > 10) return maxLengthError.replace('{Label}', 'Device').replace('{Min}', '10');
+    if (form.value.deviceId.length > 10) return maxLengthError.replace('{Label}', 'Device').replace('{Max}', '10');
     if (form.value.deviceId.length < 8) return minLengthError.replace('{Label}', 'Device').replace('{Min}', '8');
     return ""
 })

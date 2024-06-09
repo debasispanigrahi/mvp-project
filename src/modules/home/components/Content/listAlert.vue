@@ -15,7 +15,7 @@
         <div class="mt-4">
             <template v-if="notifyResults">
                 <template v-if="notifyResults.length">
-                    <Tile :notify-result="item" v-for="(item) in notifyResults" @remove-item="removeItem($event)" />
+                    <Tile :notify-result="item" v-for="(item) in notifyResults" :key="item._id+''"  @remove-item="removeItem($event)" />
                 </template>
                 <template v-else>
                     <div class="flex  justify-center items-center gap-4 mt-8">

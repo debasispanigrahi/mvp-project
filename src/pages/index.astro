@@ -1,32 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Home from "../modules/home/index.vue";
+import Default from "../layouts/default.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <!-- <div class="absolute h-screen w-screen overflow-hidden background-overlay">
-
-    </div> -->
-    <!-- <div class="relative z-[2]"> -->
-		<!-- <img
-        class="absolute z-[-2] overflow-hidden w-screen h-screen background-overlay"
-        src="/group_of_people.png"
-        title="group of people"
-        alt="group of people"
-      /> -->
-      <Header />
-      <main>
-        <Home client:load />
-      </main>
-      <Footer />
-    <!-- </div> -->
-  </body>
-</html>
+<Default>
+  <Home client:load/>
+</Default>
