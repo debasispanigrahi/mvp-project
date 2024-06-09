@@ -21,10 +21,12 @@ export const POST: APIRoute = async ({ request }) => {
   const title = body.get("title")?.toString() || "";
   const time = new Date(body.get("time")?.toString() || new Date());
   const audioFile = body.get("audio") as File | "null";
-  const fileName = `./public/audio/test-${new Date().getTime()}.mp3`;
+  const uniqueString=`${new Date().getTime()}`
+  const fileSet = `./audiolist/audio-${uniqueString}.mp3`;
+  const fileGet=`./api/audio/audio-${uniqueString}.mp3`
   if (audioFile != "null") {
     fs.writeFile(
-      fileName,
+      fileSet,
       new DataView(await audioFile.arrayBuffer()),
       (err) => {
         console.error(err);
@@ -37,7 +39,7 @@ export const POST: APIRoute = async ({ request }) => {
     title,
     audioSrc:
       audioFile != "null"
-        ? `${import.meta.env.PUBLIC_URL}${fileName.slice(1)}`
+        ? `${import.meta.env.PUBLIC_URL}${fileGet.slice(1)}`
         : null,
   });
   if (createdNotification.acknowledged) {
